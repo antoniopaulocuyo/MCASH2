@@ -13,13 +13,15 @@ public class IDGenerator {
 
     // Shared format for consistency
     private static final String ID_FORMAT = "%s-%d-%04d-%04d";
+    private static final int MAX_COUNTER_VALUE = 10000;
+    private static final int MAX_RANDOM_VALUE = 10000;
 
     public String generateTransactionId() {
         return String.format(ID_FORMAT,
                 "TXN",
                 Instant.now().toEpochMilli(),
-                transactionCounter.getAndIncrement() % 10000,
-                secureRandom.nextInt(10000)
+                transactionCounter.getAndIncrement() % MAX_COUNTER_VALUE,
+                secureRandom.nextInt(MAX_RANDOM_VALUE)
         );
     }
 
@@ -27,8 +29,8 @@ public class IDGenerator {
         return String.format(ID_FORMAT,
                 "ACC",
                 System.nanoTime(),
-                accountCounter.getAndIncrement() % 10000,
-                secureRandom.nextInt(10000)
+                accountCounter.getAndIncrement() % MAX_COUNTER_VALUE,
+                secureRandom.nextInt(MAX_RANDOM_VALUE)
         );
     }
 
@@ -36,8 +38,8 @@ public class IDGenerator {
         return String.format(ID_FORMAT,
                 "INV",
                 Instant.now().toEpochMilli(),
-                investmentCounter.getAndIncrement() % 10000,
-                secureRandom.nextInt(10000)
+                investmentCounter.getAndIncrement() % MAX_COUNTER_VALUE,
+                secureRandom.nextInt(MAX_RANDOM_VALUE)
         );
     }
 
@@ -45,8 +47,8 @@ public class IDGenerator {
         return String.format(ID_FORMAT,
                 "USR",
                 System.currentTimeMillis(),
-                userCounter.getAndIncrement() % 10000,
-                secureRandom.nextInt(10000)
+                userCounter.getAndIncrement() % MAX_COUNTER_VALUE,
+                secureRandom.nextInt(MAX_RANDOM_VALUE)
         );
     }
 }

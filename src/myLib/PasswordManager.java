@@ -131,5 +131,19 @@ public class PasswordManager {
     public int getUserCount() {
         return userDatabase.size();
     }
+
+    // Public methods for general-purpose password hashing
+    public String hashPasswordForAccount(String password) {
+        byte[] salt = generateSalt();
+        return hashPassword(password, salt);
+    }
+    
+    public byte[] generateSaltForAccount() {
+        return generateSalt();
+    }
+    
+    public String hashPasswordWithSalt(String password, byte[] salt) {
+        return hashPassword(password, salt);
+    }
 }
 

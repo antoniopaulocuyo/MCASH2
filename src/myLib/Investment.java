@@ -61,7 +61,7 @@ public abstract class Investment {
     }
 
     public double getGainLoss() {
-        return (purchasePrice - currentPrice) * quantity;
+        return (currentPrice - purchasePrice) * quantity;
     }
 
     public void sellInvestment(int quantity) {
@@ -72,7 +72,7 @@ public abstract class Investment {
     public void purchaseInvestment(int quantity, double newPurchasePrice) {
         double updatedPurchasePrice;
 
-        updatedPurchasePrice = (this.purchasePrice * this.quantity) + (newPurchasePrice * quantity) /
+        updatedPurchasePrice = ((this.purchasePrice * this.quantity) + (newPurchasePrice * quantity)) /
                 (quantity + this.quantity);
 
         this.purchasePrice = updatedPurchasePrice;

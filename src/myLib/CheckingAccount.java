@@ -3,11 +3,13 @@ package myLib;
 public class CheckingAccount extends Account {
     private double overdraftLimit;
     private double overdraftFee;
+    
+    private static final double DEFAULT_OVERDRAFT_FEE = 35.0;
 
     public CheckingAccount(String accountNumber, String userId, double overdraftLimit, String passwordHash) {
         super(userId, accountNumber, passwordHash);
         this.overdraftLimit = overdraftLimit;
-        this.overdraftFee = 35.0;
+        this.overdraftFee = DEFAULT_OVERDRAFT_FEE;
     }
 
     @Override

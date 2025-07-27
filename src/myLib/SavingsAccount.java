@@ -3,15 +3,19 @@ package myLib;
 public class SavingsAccount extends Account {
     private Double interestRate;
     private Double minimumBalance;
+    
+    private static final double DEFAULT_MINIMUM_BALANCE = 100.0;
+    private static final double LOW_BALANCE_FEE = 5.0;
+    private static final double PERCENTAGE_MULTIPLIER = 100.0;
 
     public SavingsAccount(String accountNumber, String userId, Double interestRate, String passwordHash) {
         super(userId, accountNumber, passwordHash);
         this.interestRate = interestRate;
-        this.minimumBalance = 100.0;
+        this.minimumBalance = DEFAULT_MINIMUM_BALANCE;
     }
 
     public Double calculateInterest() {
-        return this.balance * (this.interestRate / 100);
+        return this.balance * (this.interestRate / PERCENTAGE_MULTIPLIER);
     }
 
     public void applyInterest(String transactionId) {
@@ -33,7 +37,7 @@ public class SavingsAccount extends Account {
     @Override
     public double calculateFees() {
         if (this.balance < this.minimumBalance) {
-            return 5.0;
+            return LOW_BALANCE_FEE;
         }
         return 0.0;
     }

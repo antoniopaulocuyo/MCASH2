@@ -113,58 +113,14 @@ public class Notification implements Notifiable {
         StringBuilder enhancedMessage = new StringBuilder(message);
 
         if (type.name().contains("INVESTMENT") && investmentId != null) {
-            // In a real implementation, you would call:
-            // Investment investment = InvestmentService.getInvestment(investmentId);
-            // String investmentClass = investment.getInvestmentClass();
-            // double purchasePrice = investment.getPurchasePrice();
-
-            // For demonstration:
-            String investmentClass = getInvestmentClass(investmentId);
-            double purchasePrice = getInvestmentPurchasePrice(investmentId);
-
-            enhancedMessage.append(" | Investment: ").append(investmentClass)
-                    .append(" | Purchase Price: $").append(String.format("%.2f", purchasePrice));
+            enhancedMessage.append(" | Investment ID: ").append(investmentId);
         }
 
         if (type.name().contains("SENT") && accountId != null) {
-            // In a real implementation, you would call:
-            // Account account = AccountService.getAccount(accountId);
-            // String accountType = account.getAccountType();
-            // double balance = account.getBalance();
-
-            // For demonstration:
-            String accountType = getAccountType(accountId);
-            double balance = getAccountBalance(accountId);
-
-            enhancedMessage.append(" | Account: ").append(accountType)
-                    .append(" | Balance: $").append(String.format("%.2f", balance));
+            enhancedMessage.append(" | Account ID: ").append(accountId);
         }
 
         return enhancedMessage.toString();
-    }
-
-    private String getInvestmentClass(String investmentId) {
-        // Simulate fetching investment data
-        // In real implementation: return InvestmentService.getInvestment(investmentId).getInvestmentClass();
-        return "Growth Fund A";
-    }
-
-    private double getInvestmentPurchasePrice(String investmentId) {
-        // Simulate fetching investment data
-        // In real implementation: return InvestmentService.getInvestment(investmentId).getPurchasePrice();
-        return 1250.75;
-    }
-
-    private String getAccountType(String accountId) {
-        // Simulate fetching account data
-        // In real implementation: return AccountService.getAccount(accountId).getAccountType();
-        return "Savings Account";
-    }
-
-    private double getAccountBalance(String accountId) {
-        // Simulate fetching account data
-        // In real implementation: return AccountService.getAccount(accountId).getBalance();
-        return 5420.30;
     }
 
     // Static factory method to create notification from transaction

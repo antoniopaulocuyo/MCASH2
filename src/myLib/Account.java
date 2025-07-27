@@ -93,6 +93,12 @@ public abstract class Account {
     }
 
     public List<Investment> getInvestments() {
-        return new ArrayList<>(investments);
+        return investments; // Return the actual list, not a copy
+    }
+    
+    public void addInvestment(Investment investment) {
+        if (investment != null) {
+            this.investments.add(investment);
+        }
     }
 }

@@ -10,6 +10,10 @@ public class Bond extends Investment{
     private Double couponRate;
     private Double faceValue;
     private String issuer;
+    
+    private static final String DECIMAL_FORMAT = "#,##0.00";
+    private static final double DAYS_PER_YEAR = 365.0;
+    private static final double PERCENTAGE_MULTIPLIER = 100.0;
 
     public Bond(
             String investmentId,
@@ -40,7 +44,7 @@ public class Bond extends Investment{
     }
 
     private double calculateYieldToMaturity() {
-        double yearsToMaturity = ChronoUnit.DAYS.between(LocalDate.now(), maturityDate) / 365.0;
+        double yearsToMaturity = ChronoUnit.DAYS.between(LocalDate.now(), maturityDate) / DAYS_PER_YEAR;
         return (faceValue - currentPrice) / currentPrice / yearsToMaturity + couponRate;
     }
 
@@ -51,29 +55,25 @@ public class Bond extends Investment{
 
     @Override
     public void getInvestmentSummary(){
-        DecimalFormat df = new DecimalFormat("#,##0.00");
+        DecimalFormat df = new DecimalFormat(DECIMAL_FORMAT);
         long daysToMaturity = ChronoUnit.DAYS.between(LocalDate.now(), maturityDate);
         double ytm = calculateYieldToMaturity();
 
-        System.out.println("┌──────────────────────────────────────────────────────┐");
-        System.out.printf("│ %-20s: %-30s │\n", "Bond", name + " (" + issuer + ")");
-        System.out.printf("│ %-20s: %-30s │\n", "Investment ID", investmentId);
-        System.out.println("├──────────────────────────────────────────────────────┤");
-        System.out.printf("│ %-20s: %-30s │\n", "Quantity", quantity + " bonds");
-        System.out.printf("│ %-20s: %-30s │\n", "Face Value", "$" + df.format(faceValue) + " per bond");
-        System.out.printf("│ %-20s: %-30s │\n", "Purchase Price", "$" + df.format(purchasePrice));
-        System.out.printf("│ %-20s: %-30s │\n", "Current Price", "$" + df.format(currentPrice));
-        System.out.println("├──────────────────────────────────────────────────────┤");
-        System.out.printf("│ %-20s: %-30s │\n", "Maturity Date", maturityDate);
-        System.out.printf("│ %-20s: %-30s │\n", "Days to Maturity", daysToMaturity);
-        System.out.printf("│ %-20s: %-30s │\n", "Coupon Rate", df.format(couponRate*100) + "%");
-        System.out.printf("│ %-20s: %-30s │\n", "Annual Coupons", "$" + df.format(calculateDividends()));
-        System.out.printf("│ %-20s: %-30s │\n", "Yield to Maturity", df.format(ytm*100) + "%");
-        System.out.println("├──────────────────────────────────────────────────────┤");
-        System.out.printf("│ %-20s: %-30s │\n", "Total Value", "$" + df.format(this.getCurrentValue()));
-        System.out.printf("│ %-20s: %-30s │\n", "Total Gain/Loss",
+        System.out.println("\n\033[1;36mBond Investment Summary\033[0m");
+        System.out.println("\033[1;33mBond:\033[0m " + name + " (" + issuer + ")");
+        System.out.println("\033[1;33mInvestment ID:\033[0m " + investmentId);
+        System.out.println("\033[1;33mQuantity:\033[0m " + quantity + " bonds");
+        System.out.println("\033[1;33mFace Value:\033[0m $" + df.format(faceValue) + " per bond");
+        System.out.println("\033[1;33mPurchase Price:\033[0m $" + df.format(purchasePrice));
+        System.out.println("\033[1;33mCurrent Price:\033[0m $" + df.format(currentPrice));
+        System.out.println("\033[1;33mMaturity Date:\033[0m " + maturityDate);
+        System.out.println("\033[1;33mDays to Maturity:\033[0m " + daysToMaturity);
+        System.out.println("\033[1;33mCoupon Rate:\033[0m " + df.format(couponRate*PERCENTAGE_MULTIPLIER) + "%");
+        System.out.println("\033[1;33mAnnual Coupons:\033[0m $" + df.format(calculateDividends()));
+        System.out.println("\033[1;33mYield to Maturity:\033[0m " + df.format(ytm*PERCENTAGE_MULTIPLIER) + "%");
+        System.out.println("\033[1;33mTotal Value:\033[0m $" + df.format(this.getCurrentValue()));
+        System.out.println("\033[1;33mTotal Gain/Loss:\033[0m " +
                 (this.getGainLoss() >= 0 ? "+" : "") + "$" + df.format(this.getGainLoss()));
-        System.out.println("└──────────────────────────────────────────────────────┘");
     }
 
 }
